@@ -23,8 +23,9 @@
 using namespace std;
 
 
-const char* DB_FILE = "nexus_db.dat";
-const string ADMIN_PASS = "admin123";
+const char* DB_FILE = "eduvault_db.dat";
+const string ADMIN_PASS = "Aditya@123";
+
 
 #define RESET   "\033[0m"
 #define RED     "\033[31m"
@@ -35,28 +36,29 @@ const string ADMIN_PASS = "admin123";
 #define CYAN    "\033[36m"
 #define BOLD    "\033[1m"
 
+
 class Utils {
 public:
     static void clearScreen() {
-        #ifdef _WIN32
+    #ifdef _WIN32
         system("cls");
-        #else
+    #else
         system("clear");
-        #endif
+    #endif
     }
 
     static void delay(int ms) {
-        #ifdef _WIN32
+    #ifdef _WIN32
         Sleep(ms);
-        #else
+    #else
         usleep(ms * 1000);
-        #endif
+    #endif
     }
 
     static void printHeader(string title) {
         clearScreen();
         cout << CYAN << BOLD << "============================================================" << RESET << endl;
-        cout << CYAN << BOLD << "   N E X U S  |  " << title << RESET << endl;
+        cout << CYAN << BOLD << "   E D U V A U L T  |  " << title << RESET << endl;
         cout << CYAN << BOLD << "============================================================" << RESET << endl;
     }
 
@@ -121,12 +123,12 @@ public:
     void input() {
         cout << "\n" << BOLD << ">>> INPUT DATA MODULE" << RESET << endl;
         cout << "ID: ";
-        while (!(cin >> id)) { 
+        while (!(cin >> id)) {
             cout << RED << "Invalid ID. Enter numbers only: " << RESET;
             cin.clear();
             cin.ignore(numeric_limits<streamsize>::max(), '\n');
         }
-        cin.ignore(); 
+        cin.ignore();
 
         cout << "Name: ";
         cin.getline(name, 50);
@@ -168,15 +170,15 @@ public:
     string getBadge() const { return badge; }
 };
 
-class NexusSystem {
+class EduVaultSystem {
 public:
-    NexusSystem() {
+    EduVaultSystem() {
         ofstream file(DB_FILE, ios::binary | ios::app);
         file.close();
     }
 
     bool login() {
-        Utils::printHeader("SECURE LOGIN");
+        Utils::printHeader("ADMIN LOGIN");
         string pass;
         cout << "Enter Admin Password: ";
         cin >> pass;
@@ -291,12 +293,12 @@ public:
 
 int main() {
 #ifdef _WIN32
-    system("color 07"); 
+    system("color 07");
 #endif
 
-    NexusSystem nexus;
+    EduVaultSystem eduvault;
 
-    if (!nexus.login()) return 0;
+    if (!eduvault.login()) return 0;
 
     int choice;
     while (true) {
@@ -307,7 +309,7 @@ int main() {
         cout << "4. Analytics Dashboard\n";
         cout << "5. Exit\n";
         cout << "\nChoice: ";
-        
+
         if (!(cin >> choice)) {
             cin.clear();
             cin.ignore(numeric_limits<streamsize>::max(), '\n');
@@ -317,10 +319,10 @@ int main() {
         }
 
         switch (choice) {
-            case 1: nexus.addStudent(); break;
-            case 2: nexus.viewAll(); break;
-            case 3: nexus.searchStudent(); break;
-            case 4: nexus.analyticsDashboard(); break;
+            case 1: eduvault.addStudent(); break;
+            case 2: eduvault.viewAll(); break;
+            case 3: eduvault.searchStudent(); break;
+            case 4: eduvault.analyticsDashboard(); break;
             case 5:
                 Utils::loadingBar("Shutting down");
                 return 0;
